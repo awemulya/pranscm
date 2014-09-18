@@ -13,6 +13,21 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, 'templates'),
+)
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -31,6 +46,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -38,6 +54,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'fileupload',
+    # 'registration',
+    'django_forms_bootstrap',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -80,7 +98,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
+LOGIN_URL = '/login/'
+
+LOGOUT_URL = '/logout/'
+
+LOGIN_REDIRECT_URL = '/dashboard/'
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),'/static',)
+
 MEDIA_ROOT = '/media/'
 MEDIA_URL = '/media/'
+SITE_ID = 1
