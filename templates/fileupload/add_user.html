@@ -1,0 +1,69 @@
+{% extends base_template %}
+{% block title %}Add User {% endblock %}
+{% block container %}
+<div class="content">
+	{% if form.non_field_errors %}
+	<div class="alert alert-danger">
+		<!-- <p><strong>{{form.errors}}</strong> </p> -->
+		<p><strong>{{ form.non_field_errors }}</strong> </p>
+
+	</div>
+	{% endif %}
+	<form action="{% url 'add_user' %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
+	<legend><span class="col-sm-offset-1">Create New User</span></legend>
+	
+	<div class="form-group">
+	{% if form.username.errors %}
+	<div class="alert alert-danger">
+		<!-- <p><strong>{{form.errors}}</strong> </p> -->
+		<p><strong>{{ form.username.errors }}</strong> </p>
+
+	</div>
+	{% endif %}
+		<div class="input-group input-group-lg">
+  		<span class="input-group-addon">Enter Username</span>
+  		<input type="text" name="username" class="form-control" placeholder="Username">
+		</div>
+		</br>
+{% if form.password1.errors %}
+	<div class="alert alert-danger">
+		<!-- <p><strong>{{form.errors}}</strong> </p> -->
+		<p><strong>{{ form.password1.errors }}</strong> </p>
+
+	</div>
+	{% endif %}
+		<div class="input-group input-group-lg">
+  		<span class="input-group-addon">Enter Password</span>
+  		<input name="password1" type="password" class="form-control" placeholder="Password">
+		</div>
+		</br>
+{% if form.password2.errors %}
+	<div class="alert alert-danger">
+		<!-- <p><strong>{{form.errors}}</strong> </p> -->
+		<p><strong>{{ form.password2.errors }}</strong> </p>
+
+	</div>
+	{% endif %}
+		<div class="input-group input-group-lg">
+  		<span class="input-group-addon">Confirm Password</span>
+  		<input  name="password2" type="text" class="form-control" placeholder="Password">
+		</div>
+		</br>
+
+		<div class="col-sm-offset-2 col-sm-10">
+		<button type="submit" class="btn btn-default">Add User</button>
+		&nbsp;<button type="reset" class="btn">Cancel</button>
+		</div>
+	</div>
+	</form>
+	<script type="text/javascript">
+	$(function(){
+	$(".alert-message").alert();
+	$('#mainForm').submit(function(){
+	$('#submit').button('loading');
+	})
+	});
+	document.forms[1].elements[2].focus();
+	</script>
+</div>
+{% endblock %}
