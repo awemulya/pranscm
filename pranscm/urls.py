@@ -19,4 +19,4 @@ urlpatterns = patterns('',
 	url(r'^password_change/done/$', views.password_change_done, {'template_name': 'registration/password_change_done.html'}, name='password_change_done'),
 	# url(r'^admin/', include(admin.site.urls)),
 	(r'^user/', include('fileupload.urls')),
-	) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+	) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

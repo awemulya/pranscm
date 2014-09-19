@@ -1,0 +1,75 @@
+{% extends base_template %}
+{% block title %}Upload File{% endblock %}
+{% block container %}
+<div class="content">
+	{% if form.non_field_errors %}
+	<div class="alert alert-danger">
+		<!-- <p><strong>{{form.errors}}</strong> </p> -->
+		<p><strong>{{ form.non_field_errors }}</strong> </p>
+
+	</div>
+	{% endif %}
+	<form action="{% url 'upload_files' %}" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">{% csrf_token %}
+	<legend><span class="col-sm-offset-1">Upload File</span></legend>
+	
+	<div class="form-group">
+	{% if form.uploaded_file.errors %}
+	<div class="alert alert-danger">
+		<!-- <p><strong>{{form.errors}}</strong> </p> -->
+		<p><strong>{{ form.uploaded_file.errors }}</strong> </p>
+
+	</div>
+	{% endif %}
+		<div class="input-group input-group-lg">
+  		<span class="input-group-addon">Select File</span>
+  		<input type="file" name="uploaded_file" class="form-control" >
+		</div>
+		</br>
+	<span class="input-group-addon">Choose Allowed Users</span>
+{% if form.allowed_users.errors %}
+	<div class="alert alert-danger">
+		<!-- <p><strong>{{form.errors}}</strong> </p> -->
+		<p><strong>{{ form.allowed_users.errors }}</strong> </p>
+
+	</div>
+	{% endif %}
+		<div class="input-group input-group-lg checkbox">
+
+  		
+  		{% for user,choice in form.allowed_users.field.choices %}
+
+  		<input type="checkbox"  name="allowed_users" value="{{user}}">{{choice}} </br>
+  		{% endfor %}
+  		<!-- {{form.allowed_users}} -->
+		</div>
+		</br>
+
+		<div class="input-group input-group-lg">
+  		<span class="input-group-addon">Filename</span>
+  		<input  name="filename" type="text" class="form-control" placeholder="File Name">
+		</div>
+		</br>
+
+		<div class="input-group input-group-lg">
+  		<span class="input-group-addon">Description</span>
+  		<input  name="description" type="text" class="form-control" placeholder="Description">
+		</div>
+		</br>
+
+		<div class="col-sm-offset-2 col-sm-10">
+		<button type="submit" class="btn btn-default">Upload</button>
+		&nbsp;<button type="reset" class="btn">Cancel</button>
+		</div>
+	</div>
+	</form>
+	<script type="text/javascript">
+	$(function(){
+	$(".alert-message").alert();
+	$('#mainForm').submit(function(){
+	$('#submit').button('loading');
+	})
+	});
+	document.forms[0].elements[1].focus();
+	</script>
+</div>
+{% endblock %}

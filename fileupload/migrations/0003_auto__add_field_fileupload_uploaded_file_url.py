@@ -8,33 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'FileUpload'
-        db.create_table(u'fileupload_fileupload', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('uploaded_file', self.gf('django.db.models.fields.files.FileField')(max_length=100, null=True)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-            ('uploaded_date', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, null=True, blank=True)),
-            ('adler32', self.gf('django.db.models.fields.CharField')(max_length=256, null=True, blank=True)),
-            ('is_deleted', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal(u'fileupload', ['FileUpload'])
-
-        # Adding M2M table for field allowed_users on 'FileUpload'
-        m2m_table_name = db.shorten_name(u'fileupload_fileupload_allowed_users')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('fileupload', models.ForeignKey(orm[u'fileupload.fileupload'], null=False)),
-            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['fileupload_id', 'user_id'])
+        # Adding field 'FileUpload.uploaded_file_url'
+        db.add_column(u'fileupload_fileupload', 'uploaded_file_url',
+                      self.gf('django.db.models.fields.CharField')(default='a', max_length=256),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'FileUpload'
-        db.delete_table(u'fileupload_fileupload')
-
-        # Removing M2M table for field allowed_users on 'FileUpload'
-        db.delete_table(db.shorten_name(u'fileupload_fileupload_allowed_users'))
+        # Deleting field 'FileUpload.uploaded_file_url'
+        db.delete_column(u'fileupload_fileupload', 'uploaded_file_url')
 
 
     models = {
@@ -82,7 +64,7 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_deleted': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'uploaded_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'null': 'True', 'blank': 'True'}),
-            'uploaded_file': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True'})
+            'uploaded_file_url': ('django.db.models.fields.CharField', [], {'max_length': '256'})
         }
     }
 

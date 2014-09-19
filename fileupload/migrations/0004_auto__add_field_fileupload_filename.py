@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'FileUpload.is_deleted'
-        db.add_column(u'fileupload_fileupload', 'is_deleted',
-                      self.gf('django.db.models.fields.BooleanField')(default=False),
+        # Adding field 'FileUpload.filename'
+        db.add_column(u'fileupload_fileupload', 'filename',
+                      self.gf('django.db.models.fields.CharField')(default='file', max_length=256),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'FileUpload.is_deleted'
-        db.delete_column(u'fileupload_fileupload', 'is_deleted')
+        # Deleting field 'FileUpload.filename'
+        db.delete_column(u'fileupload_fileupload', 'filename')
 
 
     models = {
@@ -60,11 +60,12 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'FileUpload'},
             'adler32': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
             'allowed_users': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.User']", 'symmetrical': 'False'}),
-            'date_upload': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'document': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
+            'filename': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_deleted': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
+            'is_deleted': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'uploaded_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'null': 'True', 'blank': 'True'}),
+            'uploaded_file_url': ('django.db.models.fields.CharField', [], {'max_length': '256'})
         }
     }
 

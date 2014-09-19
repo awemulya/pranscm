@@ -48,9 +48,9 @@
 		<ul class="nav navbar-nav">
 		<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
 		{% if user.is_authenticated %}
-		<li><a href="{% url 'add_user' %}">UploadedFiles</a></li>
+		<li><a href="{% url 'uploaded_files' %}">UploadedFiles</a></li>
 		{% if user.is_superuser %}
-		<li><a href="{% url 'add_user' %}">Upload Files</a></li>
+		<li><a href="{% url 'upload_files' %}">Upload Files</a></li>
 		<li><a href="{% url 'add_user' %}">Add User</a></li>
 		{% endif %}
 		{% endif %}
