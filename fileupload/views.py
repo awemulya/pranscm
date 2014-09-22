@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, redirect,render
+from django.shortcuts import render, get_object_or_404, redirect,render,render_to_response
 from forms import CreateUserForm,UploadForm
 from models import FileUpload
 
@@ -77,7 +77,7 @@ def upload_files_saved(request):
 	return render(request,'fileupload/upload_file_sucess.html')
 
 @login_required
-def uploaded_files(request):
+def uploaded_files_without_pagination(request):
 	if request.user.is_superuser:
 		filelist = FileUpload.objects.filter(is_deleted=False).order_by('-uploaded_date')[:50]
 	else:
@@ -96,3 +96,27 @@ def delete_file(request,file_id):
 	f.is_deleted = True
 	f.save()
 	return HttpResponseRedirect(reverse('uploaded_files'))
+
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+@login_required
+def uploaded_files(request):
+	if request.user.is_superuser:
+		filelist = FileUpload.objects.filter(is_deleted=False).order_by('-uploaded_date')[:50]
+	else:
+		filelist = FileUpload.objects.filter(is_deleted=False,allowed_users = (request.user)).order_by('-uploaded_date')[:30]
+
+	paginator = Paginator(filelist, 10) # Show 2 contacts per page
+
+	page = request.GET.get('page')
+	try:
+		filelist = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		filelist = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		filelist = paginator.page(paginator.num_pages)
+
+	return render_to_response('fileupload/uploaded_files.html', {"documents": filelist})

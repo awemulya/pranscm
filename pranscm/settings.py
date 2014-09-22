@@ -42,6 +42,8 @@ TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = []
 
 
+
+
 # Application definition
 
 INSTALLED_APPS = (
