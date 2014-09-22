@@ -7,7 +7,8 @@
 	{% if documents %}
         <ul>
         {% for document in documents %}
-            <li><a href="{{ document.uploaded_file_url}}">{{ document.filename }}</a>{% if user.is_superuser %} 
+            <li><a href="{{ document.uploaded_file_url}}">{{ document.filename }}</a>
+            {% if user.is_superuser %} 
             <a href="{% url 'delete' document.id %} " class="glyphicon glyphicon-remove" title="Delete File"></a> {% endif %}</li>
         {% endfor %}
         </ul>

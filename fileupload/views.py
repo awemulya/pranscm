@@ -63,9 +63,9 @@ def upload_files(request):
 			newdoc = FileUpload()
 			newdoc.uploaded_file_url = saved_file
 			newdoc.description = form_data['description']
-			newdoc.save()
 			newdoc.filename = form_data['filename']
-			newdoc.allowded_users = form_data['allowed_users']
+			newdoc.save()
+			newdoc.allowed_users = form_data['allowed_users']
 			newdoc.save()
 			return redirect('/user/upload/save/')
 	form = UploadForm()
@@ -81,7 +81,10 @@ def uploaded_files(request):
 	if request.user.is_superuser:
 		filelist = FileUpload.objects.filter(is_deleted=False).order_by('-uploaded_date')[:50]
 	else:
-		filelist = FileUpload.objects.filter(is_deleted=False,allowded_users__in=(request.user)).order_by('-uploaded_date')[:30]
+		filelist = FileUpload.objects.filter(is_deleted=False,allowed_users = (request.user)).order_by('-uploaded_date')[:30]
+		# filelist =request.user.files.all()#filter(is_deleted=False).order_by('-uploaded_date')[:30]
+		# import pdb
+		# pdb.set_trace() 
 
 	# import pdb
 	# pdb.set_trace()
