@@ -18,7 +18,7 @@
    
         <ul class="pager">
         {% if documents.has_previous %}
-  <li> <a href="?page={{ documents.previous_page_number }}">previous</a></li>
+             <li> <a href="?page={{ documents.previous_page_number }}">previous</a></li>
         {% endif %}
         <span class="current">
             Page {{ documents.number }} of {{ documents.paginator.num_pages }}.

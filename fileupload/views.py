@@ -119,4 +119,4 @@ def uploaded_files(request):
 		# If page is out of range (e.g. 9999), deliver last page of results.
 		filelist = paginator.page(paginator.num_pages)
 
-	return render_to_response('fileupload/uploaded_files.html', {"documents": filelist})
+	return render(request,'fileupload/uploaded_files.html', {"documents": filelist})
