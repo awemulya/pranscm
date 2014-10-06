@@ -28,11 +28,30 @@ def add_user(request):
 			user = User.objects.create_user(username)
 			user.set_password(password)
 			user.save()
-			return redirect('/user/add/save/')
+			return HttpResponseRedirect(reverse('upload_files'))
 	else:
 		form = CreateUserForm()
 	base_template = 'dashboard.html'
 	return render(request,'fileupload/add_user.html',{'form':form, 'base_template':base_template })
+
+@login_required
+def add_user_fancy(request):
+	if request.POST:
+		form = CreateUserForm(request.POST)
+		if form.is_valid():
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password1']
+			user = User.objects.create_user(username)
+			user.set_password(password)
+			user.save()
+			form = CreateUserForm()
+			base_template = 'fancy.html'
+			return render(request,'fileupload/add_user_fancy.html',
+			{'form':form, 'base_template':base_template ,'message':"User "+user.username+" Added Sucessfully"})
+	else:
+		form = CreateUserForm()
+	base_template = 'fancy.html'
+	return render(request,'fileupload/add_user_fancy.html',{'form':form, 'base_template':base_template })
 
 @login_required
 def save_user(request):
@@ -67,7 +86,7 @@ def upload_files(request):
 			newdoc.save()
 			newdoc.allowed_users = form_data['allowed_users']
 			newdoc.save()
-			return redirect('/user/upload/save/')
+			return HttpResponseRedirect(reverse('uploaded_files'))
 	form = UploadForm()
 	base_template = 'dashboard.html'
 	return render(request,'fileupload/upload_file.html',{'form':form, 'base_template':base_template })

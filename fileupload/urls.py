@@ -4,6 +4,7 @@ from fileupload import views
 urlpatterns = patterns('',
 	url(r'^$', views.dashboard, name='dashboard'),
 	url(r'^add/$', views.add_user, name='add_user'),
+	url(r'^add/fancy$', views.add_user_fancy, name='add_user_fancy'),
 	url(r'^add/save/$', views.save_user, name='save_user'),
 	url(r'^upload/$', views.upload_files, name='upload_files'),
 	url(r'^uploaded/', views.uploaded_files, name='uploaded_files'),

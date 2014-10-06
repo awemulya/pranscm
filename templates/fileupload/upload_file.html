@@ -1,5 +1,10 @@
 {% extends base_template %}
+{% load staticfiles %}
 {% block title %}Upload File{% endblock %}
+{% block extra-head %}
+<script src="{% static 'fancybox/jquery.fancybox.pack.js' %}"></script>
+<link href="{% static 'fancybox/jquery.fancybox.css' %}" rel="stylesheet" type="text/css" media="screen"/>
+{% endblock %}
 {% block container %}
 <div class="content">
 	{% if form.non_field_errors %}
@@ -26,20 +31,31 @@
 		</div>
 		</br>
 	<span class="input-group-addon">Choose Allowed Users</span>
-{% if form.allowed_users.errors %}
+	{% if form.allowed_users.errors %}
 	<div class="alert alert-danger">
 		<!-- <p><strong>{{form.errors}}</strong> </p> -->
 		<p><strong>{{ form.allowed_users.errors }}</strong> </p>
 
 	</div>
 	{% endif %}
-		<div class="input-group input-group-lg checkbox">
+			  <!-- this is the global checkbox -->
 
+
+<!-- row checkboxs -->
+
+		<div class="input-group input-group-lg checkbox">
+<div class="make-switch switch-mini" id="rowSelectAll">
+    <input type="checkbox" id="selecctall">Select All
+</div>
   		
   		{% for user,choice in form.allowed_users.field.choices %}
+  			<div class="make-switch switch-mini toggle-state-switch">
+    <input type="checkbox" class="row-select" name="allowed_users" value="{{user}}">{{choice}} </br>
 
-  		<input type="checkbox"  name="allowed_users" value="{{user}}">{{choice}} </br>
+</div>
+  		
   		{% endfor %}
+  		<a class="various" href="/user/add/fancy" data-fancybox-type="iframe">Add New User</a>
   		<!-- {{form.allowed_users}} -->
 		</div>
 		</br>
@@ -62,14 +78,40 @@
 		</div>
 	</div>
 	</form>
-	<script type="text/javascript">
-	$(function(){
-	$(".alert-message").alert();
-	$('#mainForm').submit(function(){
-	$('#submit').button('loading');
-	})
-	});
-	document.forms[0].elements[1].focus();
-	</script>
+
+	<script>
+$(document).ready(function() {
+
+	$(".various").fancybox({
+maxWidth    : 800,
+maxHeight    : 600,
+fitToView    : false,
+width        : '70%',
+height        : '70%',
+autoSize    : false,
+closeClick    : false,
+openEffect    : 'none',
+closeEffect    : 'none',
+type: 'iframe',
+afterClose: function () {
+      parent.location.reload(true);
+            }      
+});
+    $('#selecctall').click(function(event) {  //on click
+        if(this.checked) { // check select status
+            $('.row-select').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"              
+            });
+        }else{
+            $('.row-select').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                      
+            });        
+        }
+    });
+
+   
+});
+</script>
+
 </div>
 {% endblock %}

@@ -1,5 +1,11 @@
 {% extends base_template %}
+{% load staticfiles %}
 {% block title %}Add User {% endblock %}
+{% block extra-head %}
+
+    
+</script>
+{% endblock %}
 {% block container %}
 <div class="content">
 {% if message %}
@@ -12,7 +18,7 @@
 
 	</div>
 	{% endif %}
-	<form action="{% url 'add_user' %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
+	<form action="{% url 'add_user_fancy' %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
 	<legend><span class="col-sm-offset-1">Create New User</span></legend>
 	
 	<div class="form-group">
@@ -54,7 +60,7 @@
 		</br>
 
 		<div class="col-sm-offset-2 col-sm-10">
-		<button type="submit" class="btn btn-default">Add User</button>
+		<button type="submit" class="btn btn-default fancy">Add User</button>
 		&nbsp;<button type="reset" class="btn">Cancel</button>
 		</div>
 	</div>
@@ -64,6 +70,7 @@
 	$(".alert-message").alert();
 	$('#mainForm').submit(function(){
 	$('#submit').button('loading');
+
 	})
 	});
 	document.forms[0].elements[1].focus();
