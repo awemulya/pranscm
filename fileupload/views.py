@@ -34,6 +34,9 @@ def add_user(request):
 	base_template = 'dashboard.html'
 	return render(request,'fileupload/add_user.html',{'form':form, 'base_template':base_template })
 
+
+
+
 @login_required
 def add_user_fancy(request):
 	if request.POST:
@@ -91,6 +94,7 @@ def upload_files(request):
 	base_template = 'dashboard.html'
 	return render(request,'fileupload/upload_file.html',{'form':form, 'base_template':base_template })
 
+
 @login_required
 def upload_files_saved(request):
 	return render(request,'fileupload/upload_file_sucess.html')
@@ -117,6 +121,7 @@ def delete_file(request,file_id):
 	return HttpResponseRedirect(reverse('uploaded_files'))
 
 
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
@@ -139,3 +144,26 @@ def uploaded_files(request):
 		filelist = paginator.page(paginator.num_pages)
 
 	return render(request,'fileupload/uploaded_files.html', {"documents": filelist})
+
+def list_user(request):
+	user_list = User.objects.filter(is_active=True).exclude(is_superuser=True)
+	paginator = Paginator(user_list, 10) # Show 2 contacts per page
+
+	page = request.GET.get('page')
+	try:
+		user_list = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		user_list = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		user_list = paginator.page(paginator.num_pages)
+
+	base_template = 'dashboard.html'
+	return render(request,'fileupload/list_user.html',{'user_list':user_list, 'base_template':base_template })
+
+def delete_user(request,user_id):
+	u = User.objects.get(pk =user_id)
+	u.is_active = False
+	u.save()
+	return HttpResponseRedirect(reverse('list_user'))

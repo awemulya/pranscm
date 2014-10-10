@@ -1,0 +1,44 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}User List{% endblock %}
+
+{% block container %}
+<div class="content">
+    <h3>User List</h3>
+    {% if user_list %}
+        <ul>
+        {% for u in user_list %}
+            <li>{{ u.username }}</a>
+            {% if user.is_superuser %} 
+            <a href="{% url 'delete_user' u.id %} " class="glyphicon glyphicon-remove" title="Delete User"></a> {% endif %}</li>
+        {% endfor %}
+
+        </ul>
+        <ul class="pagination">
+   
+        <ul class="pager">
+        {% if user_list.has_previous %}
+             <li> <a href="?page={{ user_list.previous_page_number }}">previous</a></li>
+        {% endif %}
+        <span class="current">
+            Page {{ user_list.number }} of {{ user_list.paginator.num_pages }}.
+        </span>
+  {% if user_list.has_next %}
+       <li>     <a href="?page={{ user_list.next_page_number }}">next</a></li>
+        {% endif %}
+</ul>
+           
+
+        
+
+       
+
+</ul>
+
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+</div>
+
+
+{% endblock %}
