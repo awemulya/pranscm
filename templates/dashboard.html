@@ -28,7 +28,21 @@
 	body {
 	padding-top: 60px;
 	padding-bottom: 40px;
+	
 }
+/*.container{
+	background-color: #2B5C00;
+	color: #000000;
+
+}
+.container a {
+    color: #FFFFFF;
+    
+}
+.container a.focus {
+	background-color: #F69220;
+	color: #FFFFFF;
+}*/
 </style>
 
 {% block extra-head %}{% endblock %}
@@ -44,22 +58,23 @@
 		</button>
 		<a class="navbar-brand" href="{% url 'dashboard' %}">{{ site.name }}</a>
 	</div>
-	<div class="collapse navbar-collapse">
+	<div class="collapse navbar-collapse" style="background-color:#2B5C00">
 		<ul class="nav navbar-nav">
-		<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+		<li><img src="/static/logo.jpg" height="50px"></li>
+		<li><a href="{% url 'dashboard' %}" style="color:#FFFFFF">Dashboard</a></li>
 		{% if user.is_authenticated %}
-		<li><a href="{% url 'uploaded_files' %}">UploadedFiles</a></li>
+		<li><a href="{% url 'uploaded_files' %}" style="color:#FFFFFF">UploadedFiles</a></li>
 		{% if user.is_superuser %}
-		<li><a href="{% url 'upload_files' %}">Upload Files</a></li>
-		<li><a href="{% url 'add_user' %}">Add User</a></li>
+		<li><a href="{% url 'upload_files' %}" style="color:#FFFFFF">Upload Files</a></li>
+		<li><a href="{% url 'add_user' %}" style="color:#FFFFFF">Add User</a></li>
 		{% endif %}
 		{% endif %}
 		</ul>
 		{% if user.is_authenticated %}
 		<ul class="nav navbar-nav navbar-right">
-		<li><p class="navbar-text">Welcome {{ user.username }}</p></li>
-		<li><a href="{% url 'password_change' %}">Change password</a></li>
-		<li><a href="{% url 'logout' %}">Log out</a></li>
+		<li><p class="navbar-text" style="color:#FFFFFF">Welcome {{ user.username }}</p></li>
+		<li><a href="{% url 'password_change' %}" style="color:#FFFFFF">Change password</a></li>
+		<li><a href="{% url 'logout' %}" style="color:#FFFFFF">Log out</a></li>
 		</ul>
 		{% endif %}
 	</div>
