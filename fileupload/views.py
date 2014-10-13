@@ -19,6 +19,11 @@ def dashboard(request):
 	return render(request,'dashboard.html')
 
 @login_required
+def password_change_done(request):
+	return HttpResponseRedirect(reverse('dashboard'))
+
+
+@login_required
 def add_user(request):
 	if request.POST:
 		form = CreateUserForm(request.POST)
@@ -28,7 +33,7 @@ def add_user(request):
 			user = User.objects.create_user(username)
 			user.set_password(password)
 			user.save()
-			return HttpResponseRedirect(reverse('upload_files'))
+			return HttpResponseRedirect(reverse('dashboard'))
 	else:
 		form = CreateUserForm()
 	base_template = 'dashboard.html'

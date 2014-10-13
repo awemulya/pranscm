@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 	url(r'^login/$', views.login, {'template_name': 'registration/login.html'}, name='login'),
 	url(r'^logout/$', views.logout, {'template_name': 'registration/logged_out.html'}, name='logout'),
 	url(r'^password_change/$', views.password_change, {'template_name': 'registration/password_change_form.html'}, name='password_change'),
-	url(r'^password_change/done/$', views.password_change_done, {'template_name': 'registration/password_change_done.html'}, name='password_change_done'),
+	url(r'^password_change/done/$', file_upload_view.password_change_done, name='password_change_done'),
 	# url(r'^admin/', include(admin.site.urls)),
 	(r'^user/', include('fileupload.urls')),
 	) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
