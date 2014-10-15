@@ -10,6 +10,7 @@ from datetime import date,datetime
 import os
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 # for superuser
 # from django.contrib.auth.decorators import user_passes_test
 # @user_passes_test(lambda u: u.is_superuser)
@@ -33,6 +34,7 @@ def add_user(request):
 			user = User.objects.create_user(username)
 			user.set_password(password)
 			user.save()
+			messages.add_message(request, messages.INFO, "User . "+username+" Addeded Sucessfully")
 			return HttpResponseRedirect(reverse('dashboard'))
 	else:
 		form = CreateUserForm()
@@ -94,6 +96,7 @@ def upload_files(request):
 			newdoc.save()
 			newdoc.allowed_users = form_data['allowed_users']
 			newdoc.save()
+			messages.add_message(request, messages.INFO, "File "+newdoc.filename+" Uploaded Sucessfully")
 			return HttpResponseRedirect(reverse('uploaded_files'))
 	form = UploadForm()
 	base_template = 'dashboard.html'

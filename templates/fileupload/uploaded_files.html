@@ -4,17 +4,34 @@
 
 {% block container %}
 <div class="content">
-	<h3>Uploaded File List</h3>
+<div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <h1>{{ message }}</h1>
+    {% endfor %}
+</ul>
+{% endif %}
+</div>
+    <h3>Uploaded File List</h3>
 	{% if documents %}
-        <ul>
+        <table class="table table-condensed table-hover table-bordered">
+        <tr>
+        <td>File Name</td>
+        <td> Acess To</td>
+        <td> Delete File</td>
+        </tr>
         {% for document in documents %}
-            <li><a href="{{ document.uploaded_file_url}}" title="{{document.description}}">{{ document.filename }}</a>
-            {% if user.is_authenticated %}Acess To:{% for username in document.allowed_users.all%} {{username}},{% endfor %}{% endif %}
+            <tr>
+            <td><a href="{{ document.uploaded_file_url}}" title="{{document.description}}">{{ document.filename }}</a></td>
+            <td>{% if user.is_authenticated %}{% for username in document.allowed_users.all%} <div class="grid">{{username}}</div>{% endfor %}{% endif %}</td>
+            <td>
             {% if user.is_superuser %} 
-            <a href="{% url 'delete' document.id %} " class="glyphicon glyphicon-remove" title="Delete File"></a> {% endif %}</li>
+            <a href="{% url 'delete' document.id %} " class="glyphicon glyphicon-remove" title="Delete File"></a> {% endif %}</td>
+            </tr>
         {% endfor %}
 
-        </ul>
+        </table>
         <ul class="pagination">
    
         <ul class="pager">

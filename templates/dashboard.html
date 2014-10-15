@@ -86,8 +86,13 @@
 			<div class="page-header">
 			<h1>{{ site.name }} <small>Pran Scms</small></h1>
 			</div>
-
-		</ul>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <h1>{{ message }}</h1>
+    {% endfor %}
+</ul>
+{% endif %}
 		</div>
 	{% endblock %}
 	<hr>
