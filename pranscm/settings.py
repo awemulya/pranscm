@@ -39,7 +39,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.odhat.com']
 
 
 
@@ -54,7 +54,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'south',
+    # 'south',
     'fileupload',
     # 'registration',
     'django_forms_bootstrap',
@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pran',
         'USER': 'pran',
-        'PASSWORD': '123PRAN$',
+        'PASSWORD': '123Pran$',
     }
 }
 
