@@ -35,7 +35,7 @@ TEMPLATE_LOADERS = (
 SECRET_KEY = '*vs+6x6ibt1)(mnkus0#5_rq^(@)@5z1k0hp-6lfe!xw+ey_o+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -83,8 +83,11 @@ WSGI_APPLICATION = 'pranscm.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pran'),
+        'USER': 'pran',
+        'PASSWORD': '123PRAN$',
+        'HOST': 'localhost',
     }
 }
 
