@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'pranscm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pran'),
+        'NAME': 'pran',
         'USER': 'pran',
         'PASSWORD': '123PRAN$',
         'HOST': 'localhost',
@@ -115,7 +115,9 @@ LOGIN_REDIRECT_URL = '/user/uploaded/'
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),'/static',)
+STATIC_ROOT=(os.path.join(BASE_DIR, 'static'),'/static',)
+
+STATICFILES_DIRS = ()
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

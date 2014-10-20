@@ -124,6 +124,10 @@ def uploaded_files_without_pagination(request):
 
 def delete_file(request,file_id):
 	f = FileUpload.objects.get(pk =file_id)
+	# upload_full_path = os.path.join(settings.MEDIA_ROOT, 'documents')
+	# filename = f.uploaded_date.strftime("%Y-%m-%d-%H-%M-%S")+f.filename
+	# del_file=os.path.join(upload_full_path,filename)
+	# os.remove(del_file)
 	f.is_deleted = True
 	f.save()
 	return HttpResponseRedirect(reverse('uploaded_files'))
