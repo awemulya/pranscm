@@ -87,7 +87,6 @@ DATABASES = {
         'NAME': 'pran',
         'USER': 'pran',
         'PASSWORD': '123PRAN$',
-        'HOST': 'localhost',
     }
 }
 
@@ -115,7 +114,7 @@ LOGIN_REDIRECT_URL = '/user/uploaded/'
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT=(os.path.join(BASE_DIR, 'static'),'/static',)
+STATIC_ROOT=(os.path.join(BASE_DIR, 'static'),)
 
 STATICFILES_DIRS = ()
 
