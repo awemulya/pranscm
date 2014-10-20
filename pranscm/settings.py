@@ -48,7 +48,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -123,4 +123,4 @@ MEDIA_URL = '/media/'
 
 UPLOAD_PATH = 'documents'
 
-SITE_ID = 1
+# SITE_ID = 1
