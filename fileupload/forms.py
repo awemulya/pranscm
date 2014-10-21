@@ -32,6 +32,10 @@ class CreateUserForm(forms.Form):
 
 class UploadForm(forms.Form):
 	uploaded_file = forms.FileField()
-	allowed_users = forms.ModelMultipleChoiceField(queryset=User.objects.filter(is_superuser=False,is_active=True))
+	allowed_users = forms.ModelMultipleChoiceField(queryset=None)
 	filename = forms.CharField(required = True)
 	description = forms.CharField(widget = forms.TextInput())
+
+	def __init__(self, *args, **kwargs):
+		super(UploadForm, self).__init__(*args, **kwargs)
+		self.fields['allowed_users'].queryset = User.objects.filter(is_superuser=False,is_active=True)
