@@ -114,11 +114,11 @@ LOGIN_REDIRECT_URL = '/user/uploaded/'
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'htdocs/static')
 
 STATICFILES_DIRS = ()
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'htdocs/media')
 MEDIA_URL = '/media/'
 
 UPLOAD_PATH = 'documents'
