@@ -39,7 +39,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['.odhat.com']
+ALLOWED_HOSTS = ['.odhdat.com']
 
 
 
